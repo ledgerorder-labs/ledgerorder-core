@@ -1,0 +1,16 @@
+{
+  "name": "@ledgerorder-labs/ledgerorder-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sequence-based event comparison and explicit ingestion-range coverage checks for Stellar exports.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test.mjs",
+    "demo": "node demo.mjs"
+  },
+  "exports": "./index.mjs"
+}

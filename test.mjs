@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {compare,gaps} from './index.mjs';
+const sample=()=>JSON.parse(readFileSync(new URL('./sample.json',import.meta.url),'utf8'));
+test('orders same-second ledgers by sequence',()=>{const {left,right}=sample();assert.deepEqual(compare(left,right).orderedIds,['event-100','event-101'])});
+test('same exports in different order match',()=>{const {left,right}=sample();assert.equal(compare(left,right).status,'matching-declared-exports')});
+test('identifies missing provider event',()=>{const {left,right}=sample();right.events.pop();assert.equal(compare(left,right).onlyLeft.length,1)});
+test('identifies payload divergence',()=>{const {left,right}=sample();right.events[0].payloadDigest='c'.repeat(64);assert.equal(compare(left,right).changed.length,1)});
+test('missing declared empty-ledger coverage is flagged',()=>{const {left,right}=sample();right.ranges=[{start:100,end:100}];assert.deepEqual(compare(left,right).rightGaps,[{start:101,end:101}])});
+test('gaps merge overlapping intervals without per-ledger expansion',()=>assert.deepEqual(gaps(1,10000000,[{start:1,end:5},{start:3,end:8},{start:10,end:10000000}]),[{start:9,end:9}]));
+test('rejects mismatched network and filter scope',()=>{for(const key of ['network','scope']){const {left,right}=sample();right[key]='other';assert.throws(()=>compare(left,right),/Mismatched/)}});
+test('exact repeats do not produce a mismatch',()=>{const {left,right}=sample();left.events.push({...left.events[0]});assert.equal(compare(left,right).leftDuplicates.length,1)});
+test('conflicting event IDs produce review',()=>{const {left,right}=sample();left.events.push({...left.events[0],payloadDigest:'d'.repeat(64)});assert.equal(compare(left,right).status,'review-required')});
+test('distinct IDs in one position produce review',()=>{const {left,right}=sample();left.events.push({...left.events[0],id:'imposter'});assert.equal(compare(left,right).leftConflicts.length,1)});
+test('rejects events outside claimed window',()=>{const {left,right}=sample();left.events[0].ledger=102;assert.throws(()=>compare(left,right),/outside/)});
+test('rejects invalid digests and provider labels',()=>{const {left,right}=sample();right.events[0].payloadDigest='x';assert.throws(()=>compare(left,right),/SHA-256/)});

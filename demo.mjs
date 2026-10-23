@@ -1,0 +1,1 @@
+import {readFile} from 'node:fs/promises';import {compare} from './index.mjs';const x=JSON.parse(await readFile(new URL('./sample.json',import.meta.url),'utf8'));console.log(JSON.stringify(compare(x.left,x.right),null,2));

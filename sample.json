@@ -1,0 +1,66 @@
+{
+  "left": {
+    "schemaVersion": 1,
+    "network": "synthetic:testnet",
+    "scope": "all-contract-events:demo-v1",
+    "provider": "provider-a",
+    "startLedger": 100,
+    "endLedger": 101,
+    "ranges": [
+      {
+        "start": 100,
+        "end": 101
+      }
+    ],
+    "events": [
+      {
+        "id": "event-101",
+        "ledger": 101,
+        "transactionIndex": 0,
+        "eventIndex": 0,
+        "closeTimeSeconds": 2000,
+        "payloadDigest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "id": "event-100",
+        "ledger": 100,
+        "transactionIndex": 0,
+        "eventIndex": 0,
+        "closeTimeSeconds": 2000,
+        "payloadDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ]
+  },
+  "right": {
+    "schemaVersion": 1,
+    "network": "synthetic:testnet",
+    "scope": "all-contract-events:demo-v1",
+    "provider": "provider-b",
+    "startLedger": 100,
+    "endLedger": 101,
+    "ranges": [
+      {
+        "start": 100,
+        "end": 101
+      }
+    ],
+    "events": [
+      {
+        "id": "event-100",
+        "ledger": 100,
+        "transactionIndex": 0,
+        "eventIndex": 0,
+        "closeTimeSeconds": 2000,
+        "payloadDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "id": "event-101",
+        "ledger": 101,
+        "transactionIndex": 0,
+        "eventIndex": 0,
+        "closeTimeSeconds": 2000,
+        "payloadDigest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    ]
+  }
+}
