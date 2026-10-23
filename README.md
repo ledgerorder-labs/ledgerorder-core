@@ -1,5 +1,14 @@
 # LedgerOrder · Audit engine
 
+## Connected application
+
+This module is part of a seven-repository application. Start with the [ledgerorder-frontend integration guide](https://github.com/ledgerorder-labs/ledgerorder-frontend/blob/main/INTEGRATION.md) for complete setup and the frontend → backend → core/review/contracts data flow.
+
+- [ledgerorder-frontend](https://github.com/ledgerorder-labs/ledgerorder-frontend)
+- [ledgerorder-backend](https://github.com/ledgerorder-labs/ledgerorder-backend)
+- [ledgerorder-contracts](https://github.com/ledgerorder-labs/ledgerorder-contracts)
+
+
 Sequence-based event comparison and explicit ingestion-range coverage checks for Stellar exports.
 
 **Status: 0.1.0 offline prototype.** Uses normalized synthetic JSON. No live Stellar adapter,
@@ -11,7 +20,7 @@ Bell prepares millisecond ledger timing. Export consumers need ordering by ledge
 
 ## Run locally
 
-Node.js 22+; no third-party dependencies. Clone the four project repositories into sibling
+Node.js 22+; no third-party dependencies. Clone the project repositories into sibling
 folders. The CLI and scenario consumer tests import `../ledgerorder-core/index.mjs`.
 The core and review renderer also work independently. Packages remain private until a versioned release.
 
